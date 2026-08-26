@@ -15,3 +15,11 @@ code {
 .nav-link {
   margin-left: 40px;
 }
+
+.social-icons i {
+  margin-right: 15px;
+}
+
+footer a {
+  text-decoration: none;
+}
