@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 
 import axios from "axios";
@@ -8,23 +8,26 @@ import GeneralContext from "./GeneralContext";
 import "./BuyActionWindow.css";
 
 const BuyActionWindow = ({ uid }) => {
+  const { closeBuyWindow } = useContext(GeneralContext);
   const [stockQuantity, setStockQuantity] = useState(1);
   const [stockPrice, setStockPrice] = useState(0.0);
 
-  const handleBuyClick = () => {
-    axios.post("http://localhost:3002/newOrder", {
-      name: uid,
-      qty: stockQuantity,
-      price: stockPrice,
-      mode: "BUY",
-    });
+  const handleBuyClick = async () => {
+    try {
+      await axios.post("http://localhost:3002/newOrder", {
+        name: uid,
+        qty: stockQuantity,
+        price: stockPrice,
+        mode: "BUY",
+      });
 
-    GeneralContext.closeBuyWindow();
+      closeBuyWindow();
+    } catch (error) {
+      console.error("Order failed:", error.response?.data || error.message);
+    }
   };
 
-  const handleCancelClick = () => {
-    GeneralContext.closeBuyWindow();
-  };
+  const handleCancelClick = () => closeBuyWindow();
 
   return (
     <div className="container" id="buy-window" draggable="true">
