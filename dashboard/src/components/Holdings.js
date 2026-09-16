@@ -8,11 +8,16 @@ const Holdings = () => {
   const [allHoldings, setAllHoldings] = useState([]);
 
   useEffect(() => {
-    axios.get("https://zerodha-clone-1-82hd.onrender.com/addHoldings").then((res) => {
-      // console.log(res.data);
-      setAllHoldings(res.data);
-    });
-  }, []);
+  const API_URL =
+    window.location.hostname === "localhost"
+      ? "http://localhost:3002"
+      : "https://zerodha-clone-1-82hd.onrender.com";
+
+  axios
+    .get(`${API_URL}/addHoldings`)
+    .then((res) => setAllHoldings(res.data))
+    .catch((err) => console.error("Holdings fetch failed:", err));
+}, []);
 
   // const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   const labels = allHoldings.map((subArray) => subArray["name"]);
