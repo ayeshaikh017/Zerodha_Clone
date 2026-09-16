@@ -17,7 +17,11 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:3000", // your React frontend
+    origin: [
+      "http://localhost:3000",
+      "https://zerodha-clone-3-5ftu.onrender.com",
+      "https://zerodha-clone-5-yhck.onrender.com",
+    ],
     credentials: true,
   })
 );
