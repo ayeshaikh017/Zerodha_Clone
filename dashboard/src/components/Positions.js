@@ -6,13 +6,16 @@ const Positions = () => {
   const [allPositions, setAllPositions] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3002/addPositions").then((res) => {
-      // console.log(res.data);
-      setAllPositions(res.data);
-    });
-  }, []);
+  const API_URL =
+    window.location.hostname === "localhost"
+      ? "http://localhost:3002"
+      : "https://zerodha-clone-1-82hd.onrender.com";
 
-
+  axios
+    .get(`${API_URL}/addPositions`)
+    .then((res) => setAllPositions(res.data))
+    .catch((err) => console.error("Positions fetch failed:", err));
+}, []);
 
 
 
