@@ -7,7 +7,7 @@ function Hero() {
        <div className="row text-center">
       
           
-          <img src="media\Images\homeHero.png" alt="Hero Image" />
+          <img src="/media/Images/homeHero.png" alt="Hero Image" />
           
           <h1>Invest in everything</h1>
           <p>
