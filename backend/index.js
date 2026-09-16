@@ -3,6 +3,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const AuthRoute = require("./Routes/AuthRoute");
 
 const { HoldingsModel } = require("./model/HoldingsModel");
 const { PositionsModel } = require("./model/PositionsModel");
@@ -13,8 +15,15 @@ const uri = process.env.MONGO_URL;
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000", // your React frontend
+    credentials: true,
+  })
+);
+
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 // app.get("/addHoldings", async (req, res) => {
 //  let tempHoldings = [
@@ -206,7 +215,7 @@ app.post("/newOrder", async (req, res) => {
   newOrder.save();
   res.send("Order placed successfully!");
 });
-
+app.use("/", AuthRoute);
 app.listen(PORT, () => {
   console.log("Server is running on port 3002");
   mongoose.connect(uri);
