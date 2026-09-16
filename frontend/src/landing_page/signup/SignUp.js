@@ -40,11 +40,10 @@ function SignUp() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3002/signup",
+       "https://zerodha-clone-1-82hd.onrender.com/signup",
         formData,
         { withCredentials: true }
-      );
-
+        );
       setMessage(response.data.message || "Signup successful!");
 
       if (response.data.success) {

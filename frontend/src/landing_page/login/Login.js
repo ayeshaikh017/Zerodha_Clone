@@ -15,11 +15,10 @@ function Login() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3002/login",
-        { email, password },
-        { withCredentials: true }
-      );
-
+    "https://zerodha-clone-1-82hd.onrender.com/login",
+    { email, password },
+    { withCredentials: true }
+    );
       if (response.data.success) {
         navigate("/");
       }
