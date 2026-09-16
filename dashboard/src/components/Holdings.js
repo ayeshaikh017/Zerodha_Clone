@@ -15,8 +15,22 @@ const Holdings = () => {
 
   axios
     .get(`${API_URL}/addHoldings`)
-    .then((res) => setAllHoldings(res.data))
-    .catch((err) => console.error("Holdings fetch failed:", err));
+    .then((res) => {
+      console.log("Holdings API response:", res.data);
+
+      const holdings = Array.isArray(res.data)
+        ? res.data
+        : res.data.holdings;
+
+      if (Array.isArray(holdings)) {
+        setAllHoldings(holdings);
+      } else {
+        console.error("Expected holdings array, received:", res.data);
+      }
+    })
+    .catch((err) => {
+      console.error("Holdings fetch failed:", err);
+    });
 }, []);
 
   // const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
